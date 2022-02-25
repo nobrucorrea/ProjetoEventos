@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProEentos.API.Model;
+using ProEentos.API.Data;
 
 
 namespace ProEentos.API.Controllers
@@ -13,26 +14,17 @@ namespace ProEentos.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {      
-
+        private readonly DataContext _context;
         
-        public EventoController()
+        public EventoController(DataContext context)
         {
-            
+            _context = context;
         }
     
         [HttpGet]
-        public Evento Get()
+        public IEnumerable<Evento> Get()
         {
-            return new Evento(){
-
-                    EventoId = 1,
-                    Tema = "Angular 11 ",
-                    Local ="Petropolis",
-                    DataEvento = "12-12-2022",
-                    QtdPessoas = 1
-
-
-            };
+            return _context.Eventos;
         }
 
         [HttpPost]
