@@ -35,6 +35,7 @@ namespace ProEentos.API
             );
 
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEentos.API", Version = "v1" });
@@ -56,6 +57,11 @@ namespace ProEentos.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x=>x.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            );
 
             app.UseEndpoints(endpoints =>
             {
